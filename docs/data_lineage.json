@@ -1,0 +1,23 @@
+{
+  "accession": "GSE58331",
+  "platform": "GPL570",
+  "value": "submitter-processed log2 RMA",
+  "all_series_samples": 175,
+  "probe_rows": 54675,
+  "counts": {
+    "anterior": {
+      "arrays": 49,
+      "subjects": 43,
+      "ted_subjects": 22,
+      "control_subjects": 21,
+      "genes": 22880
+    },
+    "lacrimal": {
+      "arrays": 15,
+      "subjects": 11,
+      "ted_subjects": 4,
+      "control_subjects": 7,
+      "genes": 22880
+    }
+  }
+}

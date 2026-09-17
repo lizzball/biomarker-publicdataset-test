@@ -1,0 +1,23 @@
+{
+  "primary_validation": {
+    "dataset": "GSE58331",
+    "tissue": "Anterior Orbit",
+    "n_subjects": 43,
+    "ted_n": 22,
+    "control_n": 21,
+    "oof_auroc": 0.8766233766233766,
+    "bootstrap_auroc_95ci": [
+      0.7644444444444445,
+      0.9632183992478109
+    ],
+    "average_precision": 0.8884678223937421,
+    "brier": 0.13799765333411307,
+    "repeat_auroc_median": 0.8538961038961039,
+    "repeat_auroc_min": 0.7900432900432901,
+    "repeat_auroc_max": 0.9329004329004329,
+    "qc_flagged_subjects": [
+      "TED_4"
+    ],
+    "note": "Research tissue classifier; score is not a calibrated clinical probability."
+  }
+}
