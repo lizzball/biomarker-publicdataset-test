@@ -1,0 +1,43 @@
+name: Train public GEO biomarker model
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "requirements.txt"
+      - ".github/workflows/train-model.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Download GSE58331 directly from GEO
+        run: python src/01_fetch_geo.py
+      - name: Train nested-CV model
+        run: python src/02_train_model.py
+      - name: Commit small reproducible artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f docs/data_lineage.json docs/geo_sample_inventory.csv artifacts/model_report.json artifacts/oof_subject_predictions.csv artifacts/oof_all_predictions.csv artifacts/cv_repeat_metrics.csv artifacts/feature_stability.csv artifacts/roc_curve.csv artifacts/threshold_metrics.csv artifacts/subject_qc.csv artifacts/subject_pca.csv || true
+          if git diff --cached --quiet; then
+            echo "No artifact changes to commit."
+          else
+            git commit -m "Train GSE58331 public biomarker model"
+            git push
+          fi
